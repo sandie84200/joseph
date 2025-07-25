@@ -20,18 +20,13 @@
       position: relative;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
-    }
-
+    /* Étoiles scintillantes */
     .stars {
       position: absolute;
       width: 100%;
       height: 100%;
       pointer-events: none;
     }
-
     .star {
       position: absolute;
       width: 2px;
@@ -40,23 +35,33 @@
       border-radius: 50%;
       animation: twinkle 2s infinite ease-in-out;
     }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
 
+    /* Conteneur de la photo et du message */
     .photo-container {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
+    /* Image centrée et non étirée */
     .photo-container img {
-      max-width: 80%;
+      max-width: 60%;      /* Ajustez selon la taille désirée */
+      height: auto;
+      object-fit: contain; /* Conserve les proportions sans déformation */
       border-radius: 10px;
+      display: block;
+      margin: 0 auto;
     }
-
+    /* Message caché au départ */
     .caption {
       margin-top: 10px;
       font-size: 1.5em;
       font-weight: bold;
-      min-height: 1.5em;
+      opacity: 0; /* invisible au chargement */
+      transition: opacity 1s ease; /* effet de fondu lors de l’affichage */
     }
   </style>
 </head>
@@ -65,12 +70,12 @@
   <div class="stars" id="stars"></div>
 
   <div class="photo-container">
-    <img src="https://github.com/sandie84200/banque-image/blob/main/janineleonard.jpg?raw=true" alt="Jeanine et Léonard">
-    <div id="caption" class="caption"></div>
+    <img src="https://raw.githubusercontent.com/sandie84200/banque-image/12a912837ed337367eb436f13a6b09d72d35d62e/janineleonard.jpg" alt="Jeanine et Léonard">
+    <div id="caption" class="caption">Jeanine et Léonard</div>
   </div>
 
   <script>
-    // Générer des étoiles aléatoires
+    // Génération aléatoire des étoiles
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
@@ -81,27 +86,18 @@
       starsContainer.appendChild(star);
     }
 
-    // Texte qui s'affiche progressivement
-    const captionText = "Jeanine et Léonard";
+    // Affichage du texte après un court délai (ex. 800 ms)
     const captionEl = document.getElementById('caption');
-    let index = 0;
-    const interval = setInterval(() => {
-      captionEl.textContent = captionText.slice(0, index + 1);
-      index++;
-      if (index >= captionText.length) {
-        clearInterval(interval);
-      }
-    }, 200);
+    setTimeout(() => {
+      captionEl.style.opacity = '1'; // le texte devient visible en fondu
+    }, 800);
 
     // Redirection automatique après 10 secondes
     setTimeout(() => {
-      window.location.href = 'p2.html';
-    }, 5000);
+      window.location.href = 'page2.html';
+    }, 10000);
   </script>
 
 </body>
 </html>
 
-
-</body>
-</html>
