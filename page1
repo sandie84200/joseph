@@ -93,11 +93,15 @@
       }
     }, 200);
 
-    // Redirection automatique après 5 secondes
+    // Redirection automatique après 10 secondes
     setTimeout(() => {
       window.location.href = 'page2.html';
     }, 5000);
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
