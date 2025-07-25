@@ -8,7 +8,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #001f3f;
+      background: #001f3f; /* Bleu marine */
       color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
       height: 100vh;
@@ -20,9 +20,18 @@
       position: relative;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
+    h1 {
+      font-size: 3em;
+      text-align: center;
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      animation: fadeIn 2s ease-in-out;
+      margin: 0;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .stars {
@@ -41,33 +50,19 @@
       animation: twinkle 2s infinite ease-in-out;
     }
 
-    .photo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .photo-container img {
-      max-width: 80%;
-      border-radius: 10px;
-    }
-
-    .caption {
-      margin-top: 10px;
-      font-size: 1.5em;
-      font-weight: bold;
-      min-height: 1.5em;
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Ciel étoilé -->
   <div class="stars" id="stars"></div>
 
-  <div class="photo-container">
-    <img src="https://github.com/sandie84200/banque-image/blob/main/janineleonard.jpg?raw=true" alt="Jeanine et Léonard">
-    <div id="caption" class="caption"></div>
-  </div>
+  <!-- Message central -->
+  <h1>bonjour.</h1>
 
   <script>
     // Générer des étoiles aléatoires
@@ -81,19 +76,7 @@
       starsContainer.appendChild(star);
     }
 
-    // Texte qui s'affiche progressivement
-    const captionText = "Jeanine et Léonard";
-    const captionEl = document.getElementById('caption');
-    let index = 0;
-    const interval = setInterval(() => {
-      captionEl.textContent = captionText.slice(0, index + 1);
-      index++;
-      if (index >= captionText.length) {
-        clearInterval(interval);
-      }
-    }, 200);
-
-    // Redirection automatique après 5 secondes
+    // Redirection automatique vers page2.html après 5 secondes
     setTimeout(() => {
       window.location.href = 'page2.html';
     }, 5000);
@@ -101,4 +84,5 @@
 
 </body>
 </html>
+
 
