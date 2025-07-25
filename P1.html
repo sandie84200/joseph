@@ -48,7 +48,7 @@
     }
     /* Image centrée et non étirée */
     .photo-container img {
-      max-width: 60%;      /* Ajustez selon la taille désirée */
+      max-width: 30%;      /* Ajustez selon la taille désirée */
       height: auto;
       object-fit: contain; /* Conserve les proportions sans déformation */
       border-radius: 10px;
@@ -90,11 +90,11 @@
     const captionEl = document.getElementById('caption');
     setTimeout(() => {
       captionEl.style.opacity = '1'; // le texte devient visible en fondu
-    }, 800);
+    }, 2000);
 
     // Redirection automatique après 10 secondes
     setTimeout(() => {
-      window.location.href = 'page2.html';
+      window.location.href = 'p2.html';
     }, 10000);
   </script>
 
