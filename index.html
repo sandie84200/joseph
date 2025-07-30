@@ -25,7 +25,6 @@
       text-align: center;
       font-family: 'Georgia', serif;
       font-style: italic;
-      animation: fadeIn 2s ease-in-out;
       margin: 0;
       transition: opacity 2s ease-in-out;
     }
@@ -56,56 +55,62 @@
       50% { opacity: 1; }
     }
 
-    #photo {
+    img {
+      max-width: 50%;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 2s;
       display: none;
-      max-width: 80%;
-      max-height: 80%;
-      border-radius: 15px;
-      box-shadow: 0 0 20px white;
-      animation: fadeIn 2s ease-in-out forwards;
     }
 
-    /* Bouton pour activer la musique */
-    #unmute {
-      position: fixed;
-      bottom: 20px;
+    #musicButton {
+      position: absolute;
+      top: 20px;
       right: 20px;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
       border: none;
-      padding: 10px;
-      font-size: 18px;
-      border-radius: 50%;
+      border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 0 10px white;
-      transition: 0.3s;
-    }
-
-    #unmute:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: #ffffff22;
+      color: white;
+      backdrop-filter: blur(5px);
     }
   </style>
 </head>
 <body>
 
+  <!-- Bouton musique -->
+  <button id="musicButton">🎵 Lancer la musique</button>
+  <audio id="backgroundMusic" loop>
+    <source src="https://raw.githubusercontent.com/sandie84200/audio/refs/heads/main/unstoppable-hope-piano-instrumental-168972.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- Ciel étoilé -->
   <div class="stars" id="stars"></div>
 
-  <!-- Message central -->
-  <h1 id="message">Je vais vous raconter l'histoire d'un homme extraordinaire.</h1>
+  <!-- Textes et images -->
+  <h1 id="message1">Jeanine et Léonard se sont rencontrés et aimés.</h1>
+  <img id="image1" src="https://raw.githubusercontent.com/sandie84200/banque-image/main/janineleonard.jpg" alt="Jeanine et Léonard">
 
-  <!-- Image qui apparaîtra ensuite -->
-  <img id="photo" src="https://raw.githubusercontent.com/sandie84200/banque-image/main/janineleonard.jpg" alt="Jeanine et Léonard">
+  <h1 id="message2" style="display:none;">De leur Amour est né Joseph</h1>
+  <img id="image2" src="photo1.jpg" alt="Photo 1" style="display:none;">
 
-  <!-- Bouton pour activer la musique -->
-  <audio id="bg-music" autoplay loop muted>
-    <source src="https://raw.githubusercontent.com/sandie84200/audio/main/unstoppable-hope-piano-instrumental-168972.mp3" type="audio/mpeg">
-  </audio>
+  <h1 id="message3" style="display:none;">Un rayon de soleil dans leurs vies</h1>
+  <img id="image3" src="photo2.jpg" alt="Photo 2" style="display:none;">
 
-  <button id="unmute">🔊</button>
+  <h1 id="message4" style="display:none;">Et leur bonheur brillera pour toujours ✨</h1>
 
   <script>
-    // Générer des étoiles aléatoires
+    // Bouton musique
+    const musicButton = document.getElementById('musicButton');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    musicButton.addEventListener('click', () => {
+      backgroundMusic.play();
+      musicButton.style.display = 'none';
+    });
+
+    // Génération d'étoiles
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
@@ -116,27 +121,49 @@
       starsContainer.appendChild(star);
     }
 
-    // Animation texte -> image
-    const message = document.getElementById('message');
-    const photo = document.getElementById('photo');
+    // Animation des messages et images
+    const sequence = [
+      {text: 'message1', image: 'image1'},
+      {text: 'message2', image: 'image2'},
+      {text: 'message3', image: 'image3'},
+      {text: 'message4', image: null}
+    ];
 
-    setTimeout(() => {
-      message.style.opacity = 0;
+    let index = 0;
+    function showSequence() {
+      if (index >= sequence.length) return;
+      const {text, image} = sequence[index];
+      const textEl = document.getElementById(text);
+      textEl.style.display = 'block';
+      textEl.style.opacity = 1;
+      textEl.style.animation = 'fadeIn 2s';
+
       setTimeout(() => {
-        message.style.display = 'none';
-        photo.style.display = 'block';
-      }, 2000);
-    }, 4000);
+        textEl.style.opacity = 0;
+        setTimeout(() => {
+          textEl.style.display = 'none';
+          if (image) {
+            const imgEl = document.getElementById(image);
+            imgEl.style.display = 'block';
+            setTimeout(() => imgEl.style.opacity = 1, 50);
+            setTimeout(() => {
+              imgEl.style.opacity = 0;
+              setTimeout(() => {
+                imgEl.style.display = 'none';
+                index++;
+                showSequence();
+              }, 2000);
+            }, 4000);
+          } else {
+            index++;
+            showSequence();
+          }
+        }, 2000);
+      }, 4000);
+    }
 
-    // Gestion bouton audio
-    const audio = document.getElementById('bg-music');
-    const btn = document.getElementById('unmute');
-
-    btn.addEventListener('click', () => {
-      audio.muted = false;
-      audio.play();
-      btn.style.display = 'none';
-    });
+    // Lancer la séquence
+    showSequence();
   </script>
 </body>
 </html>
