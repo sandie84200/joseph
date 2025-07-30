@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Pour toi ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <style>
     body {
       margin: 0;
@@ -57,7 +56,6 @@
       50% { opacity: 1; }
     }
 
-    /* Image cachée au départ */
     #photo {
       display: none;
       max-width: 80%;
@@ -70,6 +68,11 @@
 </head>
 <body>
 
+  <!-- Musique de fond -->
+  <audio autoplay loop hidden>
+    <source src="unstoppable-hope-piano-instrumental-168972.mp3" type="audio/mp3">
+  </audio>
+
   <!-- Ciel étoilé -->
   <div class="stars" id="stars"></div>
 
@@ -78,6 +81,13 @@
 
   <!-- Image qui apparaîtra ensuite -->
   <img id="photo" src="https://raw.githubusercontent.com/sandie84200/banque-image/main/janineleonard.jpg" alt="Jeanine et Léonard">
+
+  <!-- Texte et images alternées -->
+  <h1 id="message1">De leur Amour est né Joseph</h1>
+  <img id="image1" src="photo1.jpg" alt="Photo 1" style="display:none; max-width:50%; border-radius:20px; opacity:0; transition:opacity 2s;">
+  <h1 id="message2" style="display:none;">Un rayon de soleil dans leurs vies</h1>
+  <img id="image2" src="photo2.jpg" alt="Photo 2" style="display:none; max-width:50%; border-radius:20px; opacity:0; transition:opacity 2s;">
+  <h1 id="message3" style="display:none;">Et leur bonheur brillera pour toujours ✨</h1>
 
   <script>
     // Générer des étoiles aléatoires
@@ -88,22 +98,5 @@
       star.style.top = `${Math.random() * 100}%`;
       star.style.left = `${Math.random() * 100}%`;
       star.style.animationDuration = `${1 + Math.random() * 2}s`;
-      starsContainer.appendChild(star);
-    }
 
-    // Gestion disparition du texte et apparition de l'image
-    const message = document.getElementById('message');
-    const photo = document.getElementById('photo');
-
-    setTimeout(() => {
-      message.style.opacity = 0;
-
-      setTimeout(() => {
-        message.style.display = 'none';
-        photo.style.display = 'block';
-      }, 2000);
-    }, 4000);
-  </script>
-</body>
-</html>
 
