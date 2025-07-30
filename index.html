@@ -27,7 +27,7 @@
       font-family: 'Georgia', serif;
       font-style: italic;
       margin: 0;
-      opacity: 0;
+      transition: opacity 2s ease-in-out;
     }
 
     @keyframes fadeIn {
@@ -40,8 +40,6 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      top: 0;
-      left: 0;
     }
 
     .star {
@@ -58,12 +56,22 @@
       50% { opacity: 1; }
     }
 
-    img {
-      max-width: 30%;
-      border-radius: 20px;
-      opacity: 0;
-      transition: opacity 2s;
+    .slide {
       display: none;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide img {
+      max-width: 50%;
+      max-height: 60vh; /* Limite la hauteur à 60% de la fenêtre */
+      border-radius: 20px;
+      margin-top: 20px;
+      object-fit: contain;
     }
 
     #musicButton {
@@ -92,19 +100,35 @@
   <!-- Ciel étoilé -->
   <div class="stars" id="stars"></div>
 
-  <!-- Textes et images -->
-  <h1 id="message1">Je vais vous conter l'histoire d'un homme merveilleux.</h1>
-  <img id="image1" src="https://github.com/sandie84200/banque-image/blob/main/joeportrait.jpg?raw=true" alt="joeportrait">
+  <!-- Slides -->
+  <div class="slide active">
+    <h1>Je vais vous conter l'histoire d'un homme merveilleux.</h1>
+    <img src="https://github.com/sandie84200/banque-image/blob/main/joeportrait.jpg?raw=true" alt="Jeanine et Léonard">
+  </div>
 
-  <h1 id="message2" style="display:none;">Léonard et Jeanine se sont rencontrés et aimés.</h1>
-  <img id="image2" src="https://github.com/sandie84200/banque-image/blob/main/janineleonard.jpg?raw=true" alt="Photo 1" style="display:none;">
+  <div class="slide">
+    <h1>Léonard et Jeanine se sont rencontrés et aimés.</h1>
+    <img src="https://github.com/sandie84200/banque-image/blob/main/janineleonard.jpg?raw=true" alt="Photo 1">
+  </div>
 
-  <h1 id="message3" style="display:none;">De leur amour est né un petit garçon prénommé Joseph en l'honneur de son grand-père.</h1>
-  <img id="image3" src="https://github.com/sandie84200/banque-image/blob/main/joebebe.jpg?raw=true" alt="Photo 2" style="display:none;">
+  <div class="slide">
+    <h1>De leur amour est né un petit garçon prénommé Joseph en l'honneur de son grand-père.</h1>
+    <img src="https://github.com/sandie84200/banque-image/blob/main/joebebe.jpg?raw=true" alt="Photo 2">
+  </div>
 
-  <h1 id="message4" style="display:none;">Et leur bonheur brillera pour toujours ✨</h1>
+  <div class="slide">
+    <h1>Et leur bonheur brillera pour toujours ✨</h1>
+  </div>
 
   <script>
+    // Bouton musique
+    const musicButton = document.getElementById('musicButton');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    musicButton.addEventListener('click', () => {
+      backgroundMusic.play();
+      musicButton.style.display = 'none';
+    });
+
     // Création des étoiles
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 100; i++) {
@@ -116,38 +140,17 @@
       starsContainer.appendChild(star);
     }
 
-    // Gestion musique et animation des messages
-    const musicButton = document.getElementById('musicButton');
-    const backgroundMusic = document.getElementById('backgroundMusic');
+    // Gestion du diaporama
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
 
-    musicButton.addEventListener('click', () => {
-      backgroundMusic.play();
-      musicButton.style.display = 'none';
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
 
-      const messages = [
-        { text: document.getElementById('message1'), img: document.getElementById('image1') },
-        { text: document.getElementById('message2'), img: document.getElementById('image2') },
-        { text: document.getElementById('message3'), img: document.getElementById('image3') },
-        { text: document.getElementById('message4'), img: null }
-      ];
-
-      let index = 0;
-      function showNext() {
-        if (index < messages.length) {
-          const { text, img } = messages[index];
-          text.style.display = 'block';
-          text.style.animation = 'fadeIn 2s forwards';
-          if (img) {
-            img.style.display = 'block';
-            setTimeout(() => img.style.opacity = 1, 500);
-          }
-          index++;
-          setTimeout(showNext, 4000); // 4 secondes entre chaque
-        }
-      }
-
-      showNext();
-    });
+    setInterval(showNextSlide, 5000); // Change toutes les 5 secondes
   </script>
 </body>
 </html>
