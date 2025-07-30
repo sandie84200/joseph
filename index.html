@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Pour toi ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
@@ -106,64 +107,4 @@
     const musicButton = document.getElementById('musicButton');
     const backgroundMusic = document.getElementById('backgroundMusic');
     musicButton.addEventListener('click', () => {
-      backgroundMusic.play();
-      musicButton.style.display = 'none';
-    });
 
-    // Génération d'étoiles
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.animationDuration = `${1 + Math.random() * 2}s`;
-      starsContainer.appendChild(star);
-    }
-
-    // Animation des messages et images
-    const sequence = [
-      {text: 'message1', image: 'image1'},
-      {text: 'message2', image: 'image2'},
-      {text: 'message3', image: 'image3'},
-      {text: 'message4', image: null}
-    ];
-
-    let index = 0;
-    function showSequence() {
-      if (index >= sequence.length) return;
-      const {text, image} = sequence[index];
-      const textEl = document.getElementById(text);
-      textEl.style.display = 'block';
-      textEl.style.opacity = 1;
-      textEl.style.animation = 'fadeIn 2s';
-
-      setTimeout(() => {
-        textEl.style.opacity = 0;
-        setTimeout(() => {
-          textEl.style.display = 'none';
-          if (image) {
-            const imgEl = document.getElementById(image);
-            imgEl.style.display = 'block';
-            setTimeout(() => imgEl.style.opacity = 1, 50);
-            setTimeout(() => {
-              imgEl.style.opacity = 0;
-              setTimeout(() => {
-                imgEl.style.display = 'none';
-                index++;
-                showSequence();
-              }, 2000);
-            }, 4000);
-          } else {
-            index++;
-            showSequence();
-          }
-        }, 2000);
-      }, 4000);
-    }
-
-    // Lancer la séquence
-    showSequence();
-  </script>
-</body>
-</html>
