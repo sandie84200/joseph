@@ -27,6 +27,7 @@
       font-style: italic;
       animation: fadeIn 2s ease-in-out;
       margin: 0;
+      transition: opacity 2s ease-in-out;
     }
 
     @keyframes fadeIn {
@@ -54,6 +55,16 @@
       0%, 100% { opacity: 0.2; }
       50% { opacity: 1; }
     }
+
+    /* Image cachée au départ */
+    #photo {
+      display: none;
+      max-width: 80%;
+      max-height: 80%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px white;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
   </style>
 </head>
 <body>
@@ -62,7 +73,10 @@
   <div class="stars" id="stars"></div>
 
   <!-- Message central -->
-  <h1>Je vais vous raconter l'histoire d'un homme extraordinaire.</h1>
+  <h1 id="message">Je vais vous raconter l'histoire d'un homme extraordinaire.</h1>
+
+  <!-- Image qui apparaîtra ensuite -->
+  <img id="photo" src="ton_image.jpg" alt="Photo surprise">
 
   <script>
     // Générer des étoiles aléatoires
@@ -76,12 +90,21 @@
       starsContainer.appendChild(star);
     }
 
-    // Redirection automatique vers P1.html après 3 secondes
-    setTimeout(() => {
-      window.location.href = 'P1.html';
-    }, 5000);
-  </script>
+    // Gestion disparition du texte et apparition de l'image
+    const message = document.getElementById('message');
+    const photo = document.getElementById('photo');
 
+    setTimeout(() => {
+      // Faire disparaître le texte
+      message.style.opacity = 0;
+
+      // Quand l'opacité est 0, on cache le texte et montre la photo
+      setTimeout(() => {
+        message.style.display = 'none';
+        photo.style.display = 'block';
+      }, 2000); // temps du fade-out
+    }, 4000); // le texte reste visible 4 secondes avant de disparaître
+  </script>
 </body>
 </html>
 
