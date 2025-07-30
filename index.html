@@ -20,17 +20,34 @@
       position: relative;
     }
 
+    /* Bouton Entrer */
+    #startBtn {
+      padding: 20px 50px;
+      font-size: 2em;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      background: #ffffff;
+      color: #001f3f;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+      transition: transform 0.3s;
+      z-index: 1000;
+    }
+    #startBtn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Slides */
     .slide {
       position: absolute;
       opacity: 0;
       transition: opacity 3s ease-in-out;
       text-align: center;
     }
-
     .slide.active {
       opacity: 1;
     }
-
     .slide h1 {
       font-size: 3em;
       font-family: 'Georgia', serif;
@@ -38,7 +55,6 @@
       margin: 0;
       max-width: 80vw;
     }
-
     .slide img {
       max-width: 90%;
       max-height: 100vh;
@@ -52,8 +68,8 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
+      display: none;
     }
-
     .star {
       position: absolute;
       width: 2px;
@@ -62,7 +78,6 @@
       border-radius: 50%;
       animation: twinkle 2s infinite ease-in-out;
     }
-
     @keyframes twinkle {
       0%, 100% { opacity: 0.2; }
       50% { opacity: 1; }
@@ -71,56 +86,82 @@
 </head>
 <body>
 
-  <!-- Musique autoplay -->
-  <audio id="backgroundMusic" autoplay loop>
+  <!-- Musique -->
+  <audio id="backgroundMusic" loop>
     <source src="https://raw.githubusercontent.com/sandie84200/audio/refs/heads/main/unstoppable-hope-piano-instrumental-168972.mp3" type="audio/mpeg">
   </audio>
+
+  <!-- Bouton Start -->
+  <button id="startBtn">Entrer</button>
 
   <!-- Ciel étoilé -->
   <div class="stars" id="stars"></div>
 
-  <!-- Slides dans le bon ordre -->
-  <div class="slide active"><h1>Je vais vous conter l'histoire d'un homme merveilleux.</h1></div>
+  <!-- Slides -->
+  <div class="slide"><h1>Je vais vous conter l'histoire d'un homme merveilleux.</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joeportrait.jpg?raw=true" alt="Joe portrait"></div>
   <div class="slide"><h1>Tout commence avec la rencontre de Léonard et Janine.</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/janineleonard.jpg?raw=true" alt="Leonard et Janine"></div>
   <div class="slide"><h1>De leur amour est né un petit garçon prénommé Joseph comme le veut la tradition.</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joebebe.jpg?raw=true" alt="Joe bébé"></div>
+  <div class="slide"><h1>Entouré de sa famille il avait toujours le sourire</h1></div>
+  <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joe%20famille.jpg?raw=true" alt="Joefamille"></div>
   <div class="slide"><h1>Joseph était un petit garçon adorable et gentil ✨</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joecousine.jpg?raw=true" alt="Joecousine"></div>
-  <div class="slide"><h1>Entouré de sa famille il avait toujours le sourire</h1></div>
-  <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joe%20famille.jpg?raw=true" alt="Joefamille"></div> <div class="slide"><h1>Entouré de sa famille il avait toujours le sourire</h1></div>
   <div class="slide"><h1>Depuis toujours même s'il ne veut pas l'avouer, il a découvert la fontaine de jouvence.</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joe%2020%20ans.jpg?raw=true" alt="Joefamille"></div> 
 
   <script>
-    // Musique autoplay avec volume progressif
     const music = document.getElementById('backgroundMusic');
-    music.volume = 0; // commence muet
-    setTimeout(() => { music.volume = 1; }, 3000); // monte le son après 3s
-
-    // Étoiles
+    const startBtn = document.getElementById('startBtn');
     const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.animationDuration = `${1 + Math.random() * 2}s`;
-      starsContainer.appendChild(star);
-    }
-
-    // Diaporama séquentiel
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
 
-    function showNextSlide() {
-      slides[currentSlide].classList.remove('active');
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add('active');
+    // Fonction pour lancer le diaporama
+    function startSlideshow() {
+      slides[0].classList.add('active');
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 5000);
     }
 
-    setInterval(showNextSlide, 5000); // 5 sec par slide
+    // Au clic sur "Entrer"
+    startBtn.addEventListener('click', () => {
+      // Supprimer le bouton
+      startBtn.style.display = 'none';
+
+      // Affiche le ciel étoilé
+      starsContainer.style.display = 'block';
+
+      // Génère les étoiles
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDuration = `${1 + Math.random() * 2}s`;
+        starsContainer.appendChild(star);
+      }
+
+      // Lance la musique avec fondu
+      music.volume = 0;
+      music.play();
+      let vol = 0;
+      const fade = setInterval(() => {
+        if (vol < 1) {
+          vol += 0.05;
+          music.volume = vol;
+        } else {
+          clearInterval(fade);
+        }
+      }, 200);
+
+      // Lance le diaporama
+      startSlideshow();
+    });
   </script>
 </body>
 </html>
