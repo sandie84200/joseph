@@ -27,7 +27,7 @@
       font-family: 'Georgia', serif;
       font-style: italic;
       margin: 0;
-      transition: opacity 2s ease-in-out;
+      opacity: 0;
     }
 
     @keyframes fadeIn {
@@ -40,6 +40,8 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
+      top: 0;
+      left: 0;
     }
 
     .star {
@@ -103,8 +105,49 @@
   <h1 id="message4" style="display:none;">Et leur bonheur brillera pour toujours ✨</h1>
 
   <script>
-    // Bouton musique
+    // Création des étoiles
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${1 + Math.random() * 2}s`;
+      starsContainer.appendChild(star);
+    }
+
+    // Gestion musique et animation des messages
     const musicButton = document.getElementById('musicButton');
     const backgroundMusic = document.getElementById('backgroundMusic');
-    musicButton.addEventListener('click', () => {
 
+    musicButton.addEventListener('click', () => {
+      backgroundMusic.play();
+      musicButton.style.display = 'none';
+
+      const messages = [
+        { text: document.getElementById('message1'), img: document.getElementById('image1') },
+        { text: document.getElementById('message2'), img: document.getElementById('image2') },
+        { text: document.getElementById('message3'), img: document.getElementById('image3') },
+        { text: document.getElementById('message4'), img: null }
+      ];
+
+      let index = 0;
+      function showNext() {
+        if (index < messages.length) {
+          const { text, img } = messages[index];
+          text.style.display = 'block';
+          text.style.animation = 'fadeIn 2s forwards';
+          if (img) {
+            img.style.display = 'block';
+            setTimeout(() => img.style.opacity = 1, 500);
+          }
+          index++;
+          setTimeout(showNext, 4000); // 4 secondes entre chaque
+        }
+      }
+
+      showNext();
+    });
+  </script>
+</body>
+</html>
