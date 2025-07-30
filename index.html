@@ -17,24 +17,36 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       position: relative;
     }
 
-    h1 {
-      font-size: 3em;
+    .slide {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
       text-align: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide h1 {
+      font-size: 3em;
       font-family: 'Georgia', serif;
       font-style: italic;
       margin: 0;
-      transition: opacity 2s ease-in-out;
+      max-width: 80vw;
     }
 
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .slide img {
+      max-width: 50%;
+      max-height: 60vh;
+      border-radius: 20px;
+      object-fit: contain;
     }
 
+    /* Étoiles */
     .stars {
       position: absolute;
       width: 100%;
@@ -56,24 +68,7 @@
       50% { opacity: 1; }
     }
 
-    .slide {
-      display: none;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .slide.active {
-      display: block;
-    }
-
-    .slide img {
-      max-width: 50%;
-      max-height: 60vh; /* Limite la hauteur à 60% de la fenêtre */
-      border-radius: 20px;
-      margin-top: 20px;
-      object-fit: contain;
-    }
-
+    /* Bouton musique */
     #musicButton {
       position: absolute;
       top: 20px;
@@ -100,26 +95,15 @@
   <!-- Ciel étoilé -->
   <div class="stars" id="stars"></div>
 
-  <!-- Slides -->
-  <div class="slide active">
-    <h1>Je vais vous conter l'histoire d'un homme merveilleux.</h1>
-    <img src="https://github.com/sandie84200/banque-image/blob/main/joeportrait.jpg?raw=true" alt="Jeanine et Léonard">
-  </div>
-
-  <div class="slide">
-    <h1>Léonard et Jeanine se sont rencontrés et aimés.</h1>
-    <img src="https://github.com/sandie84200/banque-image/blob/main/janineleonard.jpg?raw=true" alt="Photo 1">
-  </div>
-
-  <div class="slide">
-    <h1>De leur amour est né un petit garçon prénommé Joseph en l'honneur de son grand-père.</h1>
-    <img src="https://github.com/sandie84200/banque-image/blob/main/joebebe.jpg?raw=true" alt="Photo 2">
-  </div>
-
-  <div class="slide">
-    <h1>Et leur bonheur brillera pour toujours ✨</h1>
-  </div>
-
+  <!-- Slides dans le bon ordre -->
+  <div class="slide active"><h1>Je vais vous conter l'histoire d'un homme merveilleux.</h1></div>
+  <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joeportrait.jpg?raw=true" alt="Joe portrait"></div>
+  <div class="slide"><h1>Léonard et Jeanine se sont rencontrés et aimés.</h1></div>
+  <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/janineleonard.jpg?raw=true" alt="Leonard et Janine"></div>
+  <div class="slide"><h1>De leur amour est né un petit garçon prénommé Joseph en l'honneur de son grand-père.</h1></div>
+  <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joebebe.jpg?raw=true" alt="Joe bébé"></div>
+  <div class="slide"><h1>Joseph était un petit garçon adorable et gentil ✨</h1></div>
+  <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joecousine.jpg?raw=true" alt="Joe bébé"></div>
   <script>
     // Bouton musique
     const musicButton = document.getElementById('musicButton');
@@ -129,7 +113,7 @@
       musicButton.style.display = 'none';
     });
 
-    // Création des étoiles
+    // Étoiles
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
@@ -140,7 +124,7 @@
       starsContainer.appendChild(star);
     }
 
-    // Gestion du diaporama
+    // Diaporama séquentiel
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
 
@@ -150,7 +134,7 @@
       slides[currentSlide].classList.add('active');
     }
 
-    setInterval(showNextSlide, 5000); // Change toutes les 5 secondes
+    setInterval(showNextSlide, 5000); // 5 sec par slide
   </script>
 </body>
 </html>
