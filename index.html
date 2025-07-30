@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #001f3f; /* Bleu marine */
+      background: #001f3f;
       color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
       height: 100vh;
@@ -19,18 +19,15 @@
       align-items: center;
       position: relative;
     }
-
     .slide {
       position: absolute;
       opacity: 0;
       transition: opacity 3s ease-in-out;
       text-align: center;
     }
-
     .slide.active {
       opacity: 1;
     }
-
     .slide h1 {
       font-size: 3em;
       font-family: 'Georgia', serif;
@@ -38,22 +35,18 @@
       margin: 0;
       max-width: 80vw;
     }
-
     .slide img {
       max-width: 90%;
       max-height: 100vh;
       border-radius: 20px;
       object-fit: contain;
     }
-
-    /* Étoiles */
     .stars {
       position: absolute;
       width: 100%;
       height: 100%;
       pointer-events: none;
     }
-
     .star {
       position: absolute;
       width: 2px;
@@ -62,13 +55,10 @@
       border-radius: 50%;
       animation: twinkle 2s infinite ease-in-out;
     }
-
     @keyframes twinkle {
       0%, 100% { opacity: 0.2; }
       50% { opacity: 1; }
     }
-
-    /* Bouton musique */
     #musicButton {
       position: absolute;
       top: 20px;
@@ -86,16 +76,14 @@
 </head>
 <body>
 
-  <!-- Bouton musique -->
   <button id="musicButton">🎵 Lancer la musique</button>
   <audio id="backgroundMusic" loop>
     <source src="https://raw.githubusercontent.com/sandie84200/audio/refs/heads/main/unstoppable-hope-piano-instrumental-168972.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Ciel étoilé -->
   <div class="stars" id="stars"></div>
 
-  <!-- Slides dans le bon ordre -->
+  <!-- Slides -->
   <div class="slide active"><h1>Je vais vous conter l'histoire d'un homme merveilleux.</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joeportrait.jpg?raw=true" alt="Joe portrait"></div>
   <div class="slide"><h1>Tout commence avec la rencontre de Léonard et Janine.</h1></div>
@@ -104,10 +92,9 @@
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joebebe.jpg?raw=true" alt="Joe bébé"></div>
   <div class="slide"><h1>Joseph était un petit garçon adorable et gentil ✨</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joecousine.jpg?raw=true" alt="Joecousine"></div>
-  <script>
   <div class="slide"><h1>Entouré de sa famille il avait toujours le sourire</h1></div>
   <div class="slide"><img src="https://github.com/sandie84200/banque-image/blob/main/joe%20famille.jpg?raw=true" alt="Joefamille"></div>
-  <script>" alt="Joe bébé"></div>
+
   <script>
     // Bouton musique
     const musicButton = document.getElementById('musicButton');
@@ -140,5 +127,6 @@
 
     setInterval(showNextSlide, 5000); // 5 sec par slide
   </script>
+
 </body>
 </html>
