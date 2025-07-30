@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Pour toi ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <style>
     body {
       margin: 0;
@@ -76,8 +77,7 @@
   <h1 id="message">Je vais vous raconter l'histoire d'un homme extraordinaire.</h1>
 
   <!-- Image qui apparaîtra ensuite -->
- <img id="photo" src="https://raw.githubusercontent.com/sandie84200/banque-image/main/janineleonard.jpg" alt="Jeanine et Léonard">
-
+  <img id="photo" src="https://raw.githubusercontent.com/sandie84200/banque-image/main/janineleonard.jpg" alt="Jeanine et Léonard">
 
   <script>
     // Générer des étoiles aléatoires
@@ -96,17 +96,14 @@
     const photo = document.getElementById('photo');
 
     setTimeout(() => {
-      // Faire disparaître le texte
       message.style.opacity = 0;
 
-      // Quand l'opacité est 0, on cache le texte et montre la photo
       setTimeout(() => {
         message.style.display = 'none';
         photo.style.display = 'block';
-      }, 2000); // temps du fade-out
-    }, 4000); // le texte reste visible 4 secondes avant de disparaître
+      }, 2000);
+    }, 4000);
   </script>
 </body>
 </html>
-
 
